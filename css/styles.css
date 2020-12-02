@@ -29,7 +29,7 @@ textarea {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-right: 15px;
+  margin-right: 18px;
 }
 
 input {
@@ -77,4 +77,24 @@ label:first-child {
   border-radius: 5px;
   font-size: 1rem;
   letter-spacing: 0.4px;
+}
+
+@media only screen and (max-width: 812px) {
+  .save-btn {
+    left: 87%;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .row {
+    display: block;
+  }
+
+  .save-btn {
+    left: 69%;
+  }
+
+  textarea {
+    width: 94%;
+  }
 }
