@@ -85,7 +85,7 @@ label:first-child {
   }
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 540px) {
   .row {
     display: block;
   }
