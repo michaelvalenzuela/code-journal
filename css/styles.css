@@ -2,12 +2,16 @@
   font-family: "Ubuntu", sans-serif;
 }
 
+body {
+  background-color: #f8f7de;
+}
+
 h2 {
   padding-left: 8px;
 }
 
 header {
-  background-color: #fcf876;
+  background-color: #fff76a;
   color: black;
   font-family: 'Epilogue', sans-serif;
   padding: 3px 55px;
