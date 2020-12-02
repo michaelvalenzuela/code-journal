@@ -14,18 +14,22 @@ header {
   background-color: #fff76a;
   color: black;
   font-family: 'Epilogue', sans-serif;
-  padding: 3px 55px;
+  padding: 2px 30px;
 }
 
 label {
   display: block;
-  padding: 7px 0 10px;
+  padding: 39px 0 15px;
   font-weight: bold;
 }
 
 textarea {
   width: 100%;
   height: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 15px;
 }
 
 input {
@@ -40,20 +44,24 @@ label:first-child {
   padding-top: 0;
 }
 
+.container {
+  position: fixed;
+}
+
 .row {
   display: flex;
-  padding: 10px;
+  margin: 15px 10px;
 }
 
 .col-two {
   flex-direction: column;
   flex-basis: 50%;
-  height: 50%;
+  height: 100%;
+  width: 100%;
   padding-right: 20px;
 }
 
 .avatar-img {
   width: 100%;
   height: 100%;
-  margin: auto;
 }
