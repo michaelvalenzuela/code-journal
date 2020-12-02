@@ -19,7 +19,7 @@ header {
 
 label {
   display: block;
-  padding: 39px 0 15px;
+  padding: 42px 0 15px;
   font-weight: bold;
 }
 
@@ -51,6 +51,7 @@ label:first-child {
 .row {
   display: flex;
   margin: 15px 10px;
+  width: 100%;
 }
 
 .col-two {
@@ -64,4 +65,16 @@ label:first-child {
 .avatar-img {
   width: 100%;
   height: 100%;
+}
+
+.save-btn {
+  position: relative;
+  left: 89%;
+  padding: 10px 20px;
+  color: white;
+  background-color: #428bca;
+  border: 1px solid grey;
+  border-radius: 5px;
+  font-size: 1rem;
+  letter-spacing: 0.4px;
 }
