@@ -94,6 +94,10 @@ label:first-child {
     left: 69%;
   }
 
+  label:first-child {
+    padding-top: 44px;
+  }
+
   textarea {
     width: 94%;
   }
