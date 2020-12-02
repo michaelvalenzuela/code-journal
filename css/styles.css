@@ -45,7 +45,9 @@ label:first-child {
 }
 
 .container {
-  position: fixed;
+  position: absolute;
+  padding: 20px;
+  padding-left: 25px;
 }
 
 .row {
