@@ -12,5 +12,5 @@ $form.addEventListener('submit', function (event) {
   data.profile.fullName = event.target.fullName.value;
   data.profile.location = event.target.location.value;
 
-  event.preventDefault();
+  $form.reset();
 });
