@@ -43,6 +43,10 @@ label:first-child {
   padding-top: 0;
 }
 
+p {
+  padding: 10px;
+}
+
 .container {
   position: absolute;
   padding: 20px;
@@ -77,6 +81,11 @@ label:first-child {
   border-radius: 5px;
   font-size: 1rem;
   letter-spacing: 0.4px;
+}
+
+.icon-text {
+  padding-left: 20px;
+  font-weight: normal;
 }
 
 @media only screen and (max-width: 812px) {

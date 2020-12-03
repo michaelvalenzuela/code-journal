@@ -10,7 +10,6 @@ if (prevProfile !== null) {
 $avatarUrlInput.addEventListener('input', function (e) {
   const $avatarImg = document.querySelector('.avatar-img');
   $avatarImg.setAttribute('src', e.target.value);
-
 });
 
 $form.addEventListener('submit', function (event) {
@@ -91,14 +90,20 @@ function renderProfile() {
 
   const $para1 = document.createElement('p');
   const $iconUser = document.createElement('i');
+  const $spanUser = document.createElement('span');
   $iconUser.classList.add('fas', 'fa-user');
-  $iconUser.textContent = data.profile.username;
+  $spanUser.classList.add('icon-text');
+  $spanUser.textContent = data.profile.username;
+  $iconUser.append($spanUser);
   $para1.appendChild($iconUser);
 
   const $para2 = document.createElement('p');
   const $iconLocation = document.createElement('i');
+  const $spanLocation = document.createElement('span');
   $iconLocation.classList.add('fas', 'fa-map-marker-alt');
-  $iconLocation.textContent = data.profile.location;
+  $spanLocation.classList.add('icon-text');
+  $spanLocation.textContent = data.profile.location;
+  $iconLocation.append($spanLocation);
   $para2.appendChild($iconLocation);
 
   const $para3 = document.createElement('p');
@@ -139,14 +144,11 @@ function removeChildren(element) {
 }
 
 window.addEventListener('DOMContentLoaded', function (e) {
-  // const lastCompletedProfile = window.localStorage.getItem('completed-profile');
-  // if (lastCompletedProfile !== null) {
-  //   data = lastCompletedProfile;
-  //   const completedData = JSON.parse(window.localStorage.getItem('completed-profile'));
-  //   if (completedData.profile.username && completedData.profile.username !== '') {
-  //     swapView("profile");
-  //   } else {
-  //     swapView(completedData.view);
-  //   }
-  // }
+  const lastCompletedProfile = window.localStorage.getItem('completed-profile');
+  data = JSON.parse(lastCompletedProfile);
+  if (!data.profile.username) {
+    swapView('edit-profile');
+  } else {
+    swapView(data.view);
+  }
 });
