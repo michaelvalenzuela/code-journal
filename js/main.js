@@ -14,18 +14,20 @@ $avatarUrlInput.addEventListener('input', function (e) {
 });
 
 $form.addEventListener('submit', function (event) {
+  event.preventDefault();
+
   data.profile.avatarUrl = event.target.avatarUrl.value;
   data.profile.username = event.target.username.value;
   data.profile.fullName = event.target.fullName.value;
   data.profile.location = event.target.location.value;
+  data.profile.bio = event.target.bio.value;
 
   $form.reset();
 
-  event.preventDefault();
+  swapView('profile');
 
   window.localStorage.setItem('completed-profile', JSON.stringify(data));
 
-  swapView('profile');
 });
 
 window.addEventListener('beforeunload', function (e) {
@@ -35,15 +37,16 @@ window.addEventListener('beforeunload', function (e) {
   const $locationInput = document.getElementById('locationInput');
   const $bioInput = document.getElementById('bioInput');
 
-  const currentProfile = {
-    avatarUrl: $avatarUrlInput.value,
-    username: $usernameInput.value,
-    fullName: $fullNameInput.value,
-    location: $locationInput.value,
-    bio: $bioInput.value
-  };
-
-  localStorage.setItem('profile', JSON.stringify([currentProfile]));
+  if ($avatarUrlInput || $usernameInput || $fullNameInput || $locationInput || $bioInput) {
+    const currentProfile = {
+      avatarUrl: $avatarUrlInput.value,
+      username: $usernameInput.value,
+      fullName: $fullNameInput.value,
+      location: $locationInput.value,
+      bio: $bioInput.value
+    };
+    localStorage.setItem('profile', JSON.stringify([currentProfile]));
+  }
 
 });
 
@@ -61,11 +64,11 @@ function repopulate(previousData) {
   document.getElementById('bioInput').value = parsedData[0].bio ? parsedData[0].bio : '';
 }
 
-function renderProfile(profile) {
+function renderProfile() {
   const $profileDiv = document.querySelector('div[data-view=profile]');
 
   const $titleFullName = document.createElement('h2');
-  $titleFullName.textContent = profile.fullName;
+  $titleFullName.textContent = data.profile.fullName;
   $profileDiv.appendChild($titleFullName);
 
   const $divRow = document.createElement('div');
@@ -76,8 +79,8 @@ function renderProfile(profile) {
 
   const $avatar = document.createElement('img');
   $avatar.classList.add('avatar-img');
-  if (profile.avatarUrl) {
-    $avatar.setAttribute('src', profile.avatarUrl);
+  if (data.profile.avatarUrl) {
+    $avatar.setAttribute('src', data.profile.avatarUrl);
   } else {
     $avatar.setAttribute('src', 'images/placeholder-image-square.jpg');
   }
@@ -89,17 +92,17 @@ function renderProfile(profile) {
   const $para1 = document.createElement('p');
   const $iconUser = document.createElement('i');
   $iconUser.classList.add('fas', 'fa-user');
-  $iconUser.textContent = profile.username;
+  $iconUser.textContent = data.profile.username;
   $para1.appendChild($iconUser);
 
   const $para2 = document.createElement('p');
   const $iconLocation = document.createElement('i');
   $iconLocation.classList.add('fas', 'fa-map-marker-alt');
-  $iconLocation.textContent = profile.location;
+  $iconLocation.textContent = data.profile.location;
   $para2.appendChild($iconLocation);
 
   const $para3 = document.createElement('p');
-  $para3.textContent = profile.bio;
+  $para3.textContent = data.profile.bio;
 
   $divCol2.appendChild($para1);
   $divCol2.appendChild($para2);
@@ -119,7 +122,7 @@ function swapView(showView) {
     if (view.getAttribute('data-view') === showView) {
       if (showView === 'profile') {
         removeChildren(view);
-        renderProfile(data.profile);
+        renderProfile();
       }
       view.hidden = false;
       data.view = showView;
@@ -136,13 +139,14 @@ function removeChildren(element) {
 }
 
 window.addEventListener('DOMContentLoaded', function (e) {
-  const lastCompletedProfile = window.localStorage.getItem('completed-profile');
-  if (lastCompletedProfile !== null) {
-    const completedData = JSON.parse(window.localStorage.getItem('completed-profile'));
-    if (completedData.profile.username && completedData.profile.username !== '') {
-      swapView('profile');
-    } else {
-      swapView(completedData.view);
-    }
-  }
+  // const lastCompletedProfile = window.localStorage.getItem('completed-profile');
+  // if (lastCompletedProfile !== null) {
+  //   data = lastCompletedProfile;
+  //   const completedData = JSON.parse(window.localStorage.getItem('completed-profile'));
+  //   if (completedData.profile.username && completedData.profile.username !== '') {
+  //     swapView("profile");
+  //   } else {
+  //     swapView(completedData.view);
+  //   }
+  // }
 });
