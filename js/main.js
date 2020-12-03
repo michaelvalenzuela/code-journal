@@ -1,4 +1,4 @@
-let $avatarUrlInput = document.getElementById('avatarUrlInput');
+const $avatarUrlInput = document.getElementById('avatarUrlInput');
 const $form = document.getElementById('form');
 
 const prevProfile = window.localStorage.getItem('profile');
@@ -29,7 +29,7 @@ $form.addEventListener('submit', function (event) {
 });
 
 window.addEventListener('beforeunload', function (e) {
-  $avatarUrlInput = document.getElementById('avatarUrlInput');
+  const $avatarUrlInput = document.getElementById('avatarUrlInput');
   const $usernameInput = document.getElementById('usernameInput');
   const $fullNameInput = document.getElementById('fullNameInput');
   const $locationInput = document.getElementById('locationInput');
@@ -49,16 +49,16 @@ window.addEventListener('beforeunload', function (e) {
 
 function repopulate(previousData) {
   const parsedData = JSON.parse(previousData);
-  document.getElementsByName('avatarUrl')[0].value = parsedData[0].avatarUrl ? parsedData[0].avatarUrl : '';
+  document.getElementById('avatarUrlInput').value = parsedData[0].avatarUrl ? parsedData[0].avatarUrl : '';
   if (parsedData[0].avatarUrl) {
     const $avatarImg = document.querySelector('.avatar-img');
     $avatarImg.setAttribute('src', parsedData[0].avatarUrl);
   }
 
-  document.getElementsByName('username')[0].value = parsedData[0].username ? parsedData[0].username : '';
-  document.getElementsByName('fullName')[0].value = parsedData[0].fullName ? parsedData[0].fullName : '';
-  document.getElementsByName('location')[0].value = parsedData[0].location ? parsedData[0].location : '';
-  document.getElementsByName('bio')[0].value = parsedData[0].bio ? parsedData[0].bio : '';
+  document.getElementById('usernameInput').value = parsedData[0].username ? parsedData[0].username : '';
+  document.getElementById('fullNameInput').value = parsedData[0].fullName ? parsedData[0].fullName : '';
+  document.getElementById('locationInput').value = parsedData[0].location ? parsedData[0].location : '';
+  document.getElementById('bioInput').value = parsedData[0].bio ? parsedData[0].bio : '';
 }
 
 function renderProfile(profile) {
