@@ -20,6 +20,10 @@ $form.addEventListener('submit', function (event) {
   data.profile.location = event.target.location.value;
 
   $form.reset();
+
+  event.preventDefault();
+
+  swapView('profile');
 });
 
 window.addEventListener('beforeunload', function (e) {
@@ -53,4 +57,78 @@ function repopulate(previousData) {
   document.getElementsByName('fullName')[0].value = parsedData[0].fullName ? parsedData[0].fullName : '';
   document.getElementsByName('location')[0].value = parsedData[0].location ? parsedData[0].location : '';
   document.getElementsByName('bio')[0].value = parsedData[0].bio ? parsedData[0].bio : '';
+}
+
+function renderProfile(profile) {
+  const $profileDiv = document.querySelector('div[data-view=profile]');
+
+  const $titleFullName = document.createElement('h2');
+  $titleFullName.textContent = profile.fullName;
+  $profileDiv.appendChild($titleFullName);
+
+  const $divRow = document.createElement('div');
+  $divRow.classList.add('row');
+
+  const $divCol1 = document.createElement('div');
+  $divCol1.classList.add('col-two');
+
+  const $avatar = document.createElement('img');
+  $avatar.classList.add('avatar-img');
+  if (profile.avatarUrl) {
+    $avatar.setAttribute('src', profile.avatarUrl);
+  } else {
+    $avatar.setAttribute('src', 'images/placeholder-image-square.jpg');
+  }
+  $divCol1.appendChild($avatar);
+
+  const $divCol2 = document.createElement('div');
+  $divCol2.classList.add('col-two');
+
+  const $para1 = document.createElement('p');
+  const $iconUser = document.createElement('i');
+  $iconUser.classList.add('fas', 'fa-user');
+  $iconUser.textContent = profile.username;
+  $para1.appendChild($iconUser);
+
+  const $para2 = document.createElement('p');
+  const $iconLocation = document.createElement('i');
+  $iconLocation.classList.add('fas', 'fa-map-marker-alt');
+  $iconLocation.textContent = profile.location;
+  $para2.appendChild($iconLocation);
+
+  const $para3 = document.createElement('p');
+  $para3.textContent = profile.bio;
+
+  $divCol2.appendChild($para1);
+  $divCol2.appendChild($para2);
+  $divCol2.appendChild($para3);
+
+  $divRow.appendChild($divCol1);
+  $divRow.appendChild($divCol2);
+
+  $profileDiv.appendChild($divRow);
+
+  return $profileDiv;
+}
+
+function swapView(showView) {
+  const views = document.querySelectorAll('div[data-view]');
+  for (const view of views) {
+    if (view.getAttribute('data-view') === showView) {
+      if (showView === 'profile') {
+        removeChildren(view);
+        renderProfile(data.profile);
+      }
+      view.hidden = false;
+      data.view = showView;
+    } else {
+      view.hidden = true;
+    }
+  }
+}
+
+function removeChildren(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
 }

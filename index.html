@@ -18,7 +18,7 @@
 <body>
   <header><h1>Code Journal</h1></header>
   <main>
-    <div class="container" data-view="edit-profile" hidden>
+    <div class="container" data-view="edit-profile">
       <h2>Edit Profile</h2>
       <form id="form">
         <div class="row">
@@ -48,21 +48,21 @@
       </form>
     </div>
 
-    <div class="container" data-view="view-profile">
-      <h2>Full Name</h2>
+    <div class="container" data-view="profile" hidden>
+      <h2 id="view-fullName">fake</h2>
       <div class="row">
         <div class="col-two">
-          <img class="avatar-img" src="images/placeholder-image-square.jpg">
+          <img class="avatar-img" id="view-avatar-img" src="images/placeholder-image-square.jpg">
         </div>
         <div class="col-two">
           <p>
-            <i class="fas fa-user">&nbsp;Username01</i>
+            <i class="fas fa-user">test</i>
           </p>
           <p>
-            <i class="fas fa-map-marker-alt">&nbsp;United States</i>
+            <i class="fas fa-map-marker-alt">test2</i>
           </p>
-          <p>
-            Hi this is the bio
+          <p id="view-bio">
+            this is test bio
           </p>
         </div>
       </div>
