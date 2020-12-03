@@ -23,6 +23,8 @@ $form.addEventListener('submit', function (event) {
 
   event.preventDefault();
 
+  window.localStorage.setItem('completed-profile', JSON.stringify(data));
+
   swapView('profile');
 });
 
@@ -132,3 +134,15 @@ function removeChildren(element) {
     element.removeChild(element.firstChild);
   }
 }
+
+window.addEventListener('DOMContentLoaded', function (e) {
+  const lastCompletedProfile = window.localStorage.getItem('completed-profile');
+  if (lastCompletedProfile !== null) {
+    const completedData = JSON.parse(window.localStorage.getItem('completed-profile'));
+    if (completedData.profile.username && completedData.profile.username !== '') {
+      swapView('profile');
+    } else {
+      swapView(completedData.view);
+    }
+  }
+});
