@@ -145,7 +145,9 @@ function removeChildren(element) {
 
 window.addEventListener('DOMContentLoaded', function (e) {
   const lastCompletedProfile = window.localStorage.getItem('completed-profile');
-  data = JSON.parse(lastCompletedProfile);
+  if (lastCompletedProfile !== null) {
+    data = JSON.parse(lastCompletedProfile);
+  }
   if (!data.profile.username) {
     swapView('edit-profile');
   } else {
