@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Code Journal</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue&family=Ubuntu&display=swap" rel="stylesheet">
   <link
     rel="stylesheet"
     crossorigin="anonymous"
@@ -14,10 +16,37 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header>
-  </header>
+  <header><h1>Code Journal</h1></header>
   <main>
-    <div data-view="edit-profile"></div>
+    <div class="container" data-view="edit-profile">
+      <h2>Edit Profile</h2>
+      <form id="form">
+        <div class="row">
+          <div class="col-two">
+            <img class="avatar-img" src="images/placeholder-image-square.jpg">
+          </div>
+          <div class="col-two">
+              <label for="avatarUrl">Avatar URL</label>
+              <input type="text" name="avatarUrl" required>
+              <label for="username">Username</label>
+              <input type="text" name="username" required>
+              <label for="fullName">Full Name</label>
+              <input type="text" name="fullName" required>
+              <label for="location">Location</label>
+              <input type="text" name="location" required>
+          </div>
+        </div>
+
+        <div class="row">
+              <label for="bio">Bio</label>
+              <textarea name="bio" rows="10" cols="50" required></textarea>
+        </div>
+
+        <div class="row">
+            <button class="save-btn" type="submit">SAVE</button>
+        </div>
+      </form>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
