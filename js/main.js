@@ -1,4 +1,4 @@
-let $avatarUrlInput = document.getElementsByName('avatarUrl')[0];
+let $avatarUrlInput = document.getElementById('avatarUrlInput');
 const $form = document.getElementById('form');
 
 const prevProfile = window.localStorage.getItem('profile');
@@ -29,11 +29,11 @@ $form.addEventListener('submit', function (event) {
 });
 
 window.addEventListener('beforeunload', function (e) {
-  $avatarUrlInput = document.getElementsByName('avatarUrl')[0];
-  const $usernameInput = document.getElementsByName('username')[0];
-  const $fullNameInput = document.getElementsByName('fullName')[0];
-  const $locationInput = document.getElementsByName('location')[0];
-  const $bioInput = document.getElementsByName('bio')[0];
+  $avatarUrlInput = document.getElementById('avatarUrlInput');
+  const $usernameInput = document.getElementById('usernameInput');
+  const $fullNameInput = document.getElementById('fullNameInput');
+  const $locationInput = document.getElementById('locationInput');
+  const $bioInput = document.getElementById('bioInput');
 
   const currentProfile = {
     avatarUrl: $avatarUrlInput.value,
