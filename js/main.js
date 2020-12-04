@@ -115,7 +115,7 @@ function swapView(dataView) {
       if (dataView === 'profile') {
         removeChildren(view);
         renderProfile();
-      } else if (dataView === 'edit-profile' && data.profile) {
+      } else if (dataView === 'edit-profile' && (data.profile.avatarUrl && data.profile.fullName && data.profile.username && data.profile.location && data.profile.bio)) {
         loadFromDataToEdit();
       }
       view.hidden = false;
@@ -152,6 +152,9 @@ window.addEventListener('DOMContentLoaded', function (e) {
 
 document.addEventListener('click', function (e) {
   if (e.target.tagName === 'A') {
-    swapView(e.target.getAttribute('data-view'));
+    const view = e.target.getAttribute('data-view');
+    if (view !== 'profile' || data.profile.username) {
+      swapView(view);
+    }
   }
 });
