@@ -34,6 +34,15 @@ function loadFromLocalStorageToEdit(previousData) {
   document.getElementById('bioInput').value = parsedData[0].bio ? parsedData[0].bio : '';
 }
 
+function loadFromDataToEdit() {
+  document.getElementById('avatarUrlInput').value = data.profile.avatarUrl;
+  document.querySelector('.avatar-img').setAttribute('src', data.profile.avatarUrl);
+  document.getElementById('usernameInput').value = data.profile.username;
+  document.getElementById('fullNameInput').value = data.profile.fullName;
+  document.getElementById('locationInput').value = data.profile.location;
+  document.getElementById('bioInput').value = data.profile.bio;
+}
+
 function renderProfile() {
   const $profileDiv = document.querySelector('div[data-view=profile]');
 
@@ -80,9 +89,16 @@ function renderProfile() {
   const $para3 = document.createElement('p');
   $para3.textContent = data.profile.bio;
 
+  const $editLink = document.createElement('a');
+  $editLink.textContent = 'EDIT';
+  $editLink.setAttribute('href', '#');
+  $editLink.setAttribute('data-view', 'edit-profile');
+  $editLink.classList.add('edit-link');
+
   $divCol2.appendChild($para1);
   $divCol2.appendChild($para2);
   $divCol2.appendChild($para3);
+  $divCol2.appendChild($editLink);
 
   $divRow.appendChild($divCol1);
   $divRow.appendChild($divCol2);
@@ -99,6 +115,8 @@ function swapView(dataView) {
       if (dataView === 'profile') {
         removeChildren(view);
         renderProfile();
+      } else if (dataView === 'edit-profile' && data.profile) {
+        loadFromDataToEdit();
       }
       view.hidden = false;
       data.view = dataView;
