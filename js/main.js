@@ -92,16 +92,16 @@ function renderProfile() {
   return $profileDiv;
 }
 
-function swapView(showView) {
+function swapView(dataView) {
   const views = document.querySelectorAll('div[data-view]');
   for (const view of views) {
-    if (view.getAttribute('data-view') === showView) {
-      if (showView === 'profile') {
+    if (view.getAttribute('data-view') === dataView) {
+      if (dataView === 'profile') {
         removeChildren(view);
         renderProfile();
       }
       view.hidden = false;
-      data.view = showView;
+      data.view = dataView;
     } else {
       view.hidden = true;
     }
