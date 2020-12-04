@@ -1,12 +1,6 @@
 const $avatarUrlInput = document.getElementById('avatarUrlInput');
 const $form = document.getElementById('form');
 
-const prevProfile = window.localStorage.getItem('profile');
-
-if (prevProfile !== null) {
-  repopulate(prevProfile);
-}
-
 $avatarUrlInput.addEventListener('input', function (e) {
   const $avatarImg = document.querySelector('.avatar-img');
   $avatarImg.setAttribute('src', e.target.value);
@@ -24,10 +18,9 @@ $form.addEventListener('submit', function (event) {
   $form.reset();
 
   swapView('profile');
-
 });
 
-function repopulate(previousData) {
+function loadFromLocalStorageToEdit(previousData) {
   const parsedData = JSON.parse(previousData);
   document.getElementById('avatarUrlInput').value = parsedData[0].avatarUrl ? parsedData[0].avatarUrl : '';
   if (parsedData[0].avatarUrl) {
@@ -39,6 +32,15 @@ function repopulate(previousData) {
   document.getElementById('fullNameInput').value = parsedData[0].fullName ? parsedData[0].fullName : '';
   document.getElementById('locationInput').value = parsedData[0].location ? parsedData[0].location : '';
   document.getElementById('bioInput').value = parsedData[0].bio ? parsedData[0].bio : '';
+}
+
+function loadFromDataToEdit() {
+  document.getElementById('avatarUrlInput').value = data.profile.avatarUrl;
+  document.querySelector('.avatar-img').setAttribute('src', data.profile.avatarUrl);
+  document.getElementById('usernameInput').value = data.profile.username;
+  document.getElementById('fullNameInput').value = data.profile.fullName;
+  document.getElementById('locationInput').value = data.profile.location;
+  document.getElementById('bioInput').value = data.profile.bio;
 }
 
 function renderProfile() {
@@ -87,9 +89,16 @@ function renderProfile() {
   const $para3 = document.createElement('p');
   $para3.textContent = data.profile.bio;
 
+  const $editLink = document.createElement('a');
+  $editLink.textContent = 'EDIT';
+  $editLink.setAttribute('href', '#');
+  $editLink.setAttribute('data-view', 'edit-profile');
+  $editLink.classList.add('edit-link');
+
   $divCol2.appendChild($para1);
   $divCol2.appendChild($para2);
   $divCol2.appendChild($para3);
+  $divCol2.appendChild($editLink);
 
   $divRow.appendChild($divCol1);
   $divRow.appendChild($divCol2);
@@ -99,16 +108,18 @@ function renderProfile() {
   return $profileDiv;
 }
 
-function swapView(showView) {
+function swapView(dataView) {
   const views = document.querySelectorAll('div[data-view]');
   for (const view of views) {
-    if (view.getAttribute('data-view') === showView) {
-      if (showView === 'profile') {
+    if (view.getAttribute('data-view') === dataView) {
+      if (dataView === 'profile') {
         removeChildren(view);
         renderProfile();
+      } else if (dataView === 'edit-profile' && data.profile) {
+        loadFromDataToEdit();
       }
       view.hidden = false;
-      data.view = showView;
+      data.view = dataView;
     } else {
       view.hidden = true;
     }
@@ -125,10 +136,22 @@ window.addEventListener('DOMContentLoaded', function (e) {
   const lastCompletedProfile = window.localStorage.getItem('completed-profile');
   if (lastCompletedProfile !== null) {
     data = JSON.parse(lastCompletedProfile);
+  } else if (!lastCompletedProfile) {
+    const incompleteProfile = window.localStorage.getItem('incomplete-profile');
+    if (incompleteProfile !== null) {
+      loadFromLocalStorageToEdit(incompleteProfile);
+    }
   }
+
   if (!data.profile.username) {
     swapView('edit-profile');
   } else {
     swapView(data.view);
+  }
+});
+
+document.addEventListener('click', function (e) {
+  if (e.target.tagName === 'A') {
+    swapView(e.target.getAttribute('data-view'));
   }
 });
