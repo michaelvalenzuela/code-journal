@@ -152,6 +152,6 @@ window.addEventListener('DOMContentLoaded', function (e) {
 
 document.addEventListener('click', function (e) {
   if (e.target.tagName === 'A') {
-    swapView('edit-profile');
+    swapView(e.target.getAttribute('data-view'));
   }
 });
