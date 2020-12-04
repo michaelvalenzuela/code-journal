@@ -12,7 +12,12 @@ var data = {
   entries: []
 };
 
-window.addEventListener('beforeunload', function (e) {
+window.addEventListener('beforeunload', function (event) {
+  event.preventDefault();
+  saveToLocalStorage();
+});
+
+function saveToLocalStorage() {
   const $avatarUrlInput = document.getElementById('avatarUrlInput');
   const $usernameInput = document.getElementById('usernameInput');
   const $fullNameInput = document.getElementById('fullNameInput');
@@ -20,16 +25,17 @@ window.addEventListener('beforeunload', function (e) {
   const $bioInput = document.getElementById('bioInput');
 
   if ($avatarUrlInput || $usernameInput || $fullNameInput || $locationInput || $bioInput) {
-    const currentProfile = {
+    const incompleteProfile = {
       avatarUrl: $avatarUrlInput.value,
       username: $usernameInput.value,
       fullName: $fullNameInput.value,
       location: $locationInput.value,
       bio: $bioInput.value
     };
-    localStorage.setItem('profile', JSON.stringify([currentProfile]));
+    localStorage.setItem('incomplete-profile', JSON.stringify([incompleteProfile]));
   }
 
-  window.localStorage.setItem('completed-profile', JSON.stringify(data));
-
-});
+  if (data.profile.username && data.profile.fullName && data.profile.location && data.profile.avatarUrl && data.profile.bio) {
+    window.localStorage.setItem('completed-profile', JSON.stringify(data));
+  }
+}

@@ -1,12 +1,6 @@
 const $avatarUrlInput = document.getElementById('avatarUrlInput');
 const $form = document.getElementById('form');
 
-const prevProfile = window.localStorage.getItem('profile');
-
-if (prevProfile !== null) {
-  repopulate(prevProfile);
-}
-
 $avatarUrlInput.addEventListener('input', function (e) {
   const $avatarImg = document.querySelector('.avatar-img');
   $avatarImg.setAttribute('src', e.target.value);
@@ -24,10 +18,9 @@ $form.addEventListener('submit', function (event) {
   $form.reset();
 
   swapView('profile');
-
 });
 
-function repopulate(previousData) {
+function loadFromLocalStorageToEdit(previousData) {
   const parsedData = JSON.parse(previousData);
   document.getElementById('avatarUrlInput').value = parsedData[0].avatarUrl ? parsedData[0].avatarUrl : '';
   if (parsedData[0].avatarUrl) {
@@ -125,7 +118,13 @@ window.addEventListener('DOMContentLoaded', function (e) {
   const lastCompletedProfile = window.localStorage.getItem('completed-profile');
   if (lastCompletedProfile !== null) {
     data = JSON.parse(lastCompletedProfile);
+  } else if (!lastCompletedProfile) {
+    const incompleteProfile = window.localStorage.getItem('incomplete-profile');
+    if (incompleteProfile !== null) {
+      loadFromLocalStorageToEdit(incompleteProfile);
+    }
   }
+
   if (!data.profile.username) {
     swapView('edit-profile');
   } else {
